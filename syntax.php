@@ -29,7 +29,7 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
      */
 
     function getPType(){      
-      // return 'block';
+       return 'block';
     }
 
     /**
@@ -84,7 +84,7 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
      * Create output
      */
     function render($mode, Doku_Renderer $renderer, $data) {
-		//return false;
+		
         if($mode == 'xhtml'){
             list($state, $xhtml) = $data;
             switch ($state) {
@@ -92,14 +92,13 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
 				    $tip = '<span class="annotation ui-widget-content '. $xhtml . '">';
 				    $renderer->doc .= $tip;
 				break;                                                        
-                case DOKU_LEXER_UNMATCHED : 
-				 // msg(htmlentities($xhtml));
-                $renderer->doc .= '<span id="anno_close"><span class="anno_exit">close</span> </span>';
-                $renderer->doc .= htmlentities($xhtml); break;
+                case DOKU_LEXER_UNMATCHED :		
+				   $html = html_secedit(p_render('xhtml',p_get_instructions($xhtml),$info),$secedit);				 
+                   $renderer->doc .= '<span id="anno_close"><span class="anno_exit">close</span> </span>';               
+				   $renderer->doc .= $html;
                 case DOKU_LEXER_EXIT : 
 				    $renderer->doc .= "</span>"; break; 
-				case DOKU_LEXER_SPECIAL:
-				  //  msg(htmlentities($xhtml));
+				case DOKU_LEXER_SPECIAL:				
 					list($which,$text)= explode('>',$xhtml); 
                     $title = 'anno_' .$which;
 				    $renderer->doc .= '<span class="anno" title="' .$title.'">' .htmlentities($text).'</span>';				     break;	
