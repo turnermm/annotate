@@ -29,7 +29,7 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
      */
 
     function getPType(){      
-       return 'block';
+       //return 'block';
     }
 
     /**
@@ -92,10 +92,40 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
 				    $tip = '<span class="annotation ui-widget-content '. $xhtml . '">';
 				    $renderer->doc .= $tip;
 				break;                                                        
-                case DOKU_LEXER_UNMATCHED :		
-				   $html = html_secedit(p_render('xhtml',p_get_instructions($xhtml),$info),$secedit);				 
-                   $renderer->doc .= '<span id="anno_close"><span class="anno_exit">close</span> </span>';               
-				   $renderer->doc .= $html;
+                case DOKU_LEXER_UNMATCHED : 
+				 // msg(htmlentities($xhtml));
+                $renderer->doc .= '<span id="anno_close"><span class="anno_exit">close</span> </span>';
+       		    $xhtml = trim($xhtml);
+                 if(preg_match('/^\{\{([\w\:]+)\}\}$/',$xhtml,$matches)) {					
+				  	   $html = p_wiki_xhtml($matches[1]);                        
+                        
+                        $html = preg_replace('/<\/?p>/ms',"",$html);
+                        $html = preg_replace_callback('/<(\/)?h(\d).*?>/ms',
+						function($matches){
+							if($matches[1] == '/'){
+								$style = '</b>';	
+                                if($matches[2] <= 3){
+									$style .= '<br />';
+								}						
+							}
+							else {
+								if($matches[2] <= 3){
+								  $style = '<br /><b class="extra_bold">';
+								}
+								else $style = '<br /><b>';
+							}
+							return $style;
+						}, $html);
+						
+                        $html = preg_replace('/<\/?div.*?>/ms',"",$html);
+						$html = preg_replace('/<!--.*?-->/ms',"",$html);						  
+                        //msg(htmlentities($html));    
+			        }
+			    else {
+				       //$html = html_secedit(p_render('xhtml',p_get_instructions($xhtml),$info),$secedit);				 
+                      $html =  htmlentities($xhtml); 
+				} 
+                $renderer->doc .= $html;  break;
                 case DOKU_LEXER_EXIT : 
 				    $renderer->doc .= "</span>"; break; 
 				case DOKU_LEXER_SPECIAL:				
@@ -109,11 +139,6 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
         return false;
     }
     
-  function write_debug($what) {
-     $handle = fopen("blog_pats.txt", "a");
-     fwrite($handle,"$what\n");
-     fclose($handle);
-  }
 }
 
 

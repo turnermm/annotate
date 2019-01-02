@@ -34,3 +34,7 @@ span.anno {
     border-bottom-width: 1px;
     
 }
+.extra_bold {
+  font-weight: 900;
+  font-size: 125%;
+}
