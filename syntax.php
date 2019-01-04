@@ -135,6 +135,18 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
 			return $style;
 		}, $html);
 		
+		$html = preg_replace_callback(
+        '/<table[^>]+>(.*?)<\/table>/ms',
+        function($matches) {
+            $replace = array('td','th','</tr>');
+            $replacements = array('span','span','<br/>');
+            $matches[1] = str_replace($replace, $replacements,$matches[1]);
+            $matches[1] = preg_replace("/\<tr\s+class=\"row\d\">/","",$matches[1]);
+            $matches[1] = preg_replace(array("/\<tr\s+class=\"row\d\">/","/col\d+/"),array("",'anno_col'),$matches[1]);           
+            $matches[1] = preg_replace('/\"anno_col\"\s+colspan=\"(\d)\"/',"anno_colspan_$1",$matches[1]);            
+            return'<br>' . $matches[1] .'</br>';
+        },$html);
+        
 		$html = preg_replace('/<\/?div.*?>/ms',"",$html);
 		$html = preg_replace('/<!--.*?-->/ms',"",$html);	
 		return $html;

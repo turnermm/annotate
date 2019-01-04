@@ -24,6 +24,22 @@ span.anno_exit {
 	cursor: pointer;	
 }
 
+span.anno_col {
+    border: 1px solid gray;
+    min-width:60px;
+    display: inline-block;	
+}
+span.anno_colspan_2 {
+      border: 1px solid gray;
+    min-width:120px;
+    display: inline-block;	
+}
+span.anno_colspan_3 {
+      border: 1px solid gray;
+    min-width:180px;
+    display: inline-block;	
+}
+
 span.anno {
     cursor: help;
 	text-decoration-line: underline;
