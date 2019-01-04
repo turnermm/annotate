@@ -144,9 +144,19 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
             $matches[1] = preg_replace("/\<tr\s+class=\"row\d\">/","",$matches[1]);
             $matches[1] = preg_replace(array("/\<tr\s+class=\"row\d\">/","/col\d+/"),array("",'anno_col'),$matches[1]);           
             $matches[1] = preg_replace('/\"anno_col\"\s+colspan=\"(\d)\"/',"anno_colspan_$1",$matches[1]);            
-            return'<br>' . $matches[1] .'</br>';
+            return'<br>' . $matches[1] .'<br />';
         },$html);
         
+        $html = preg_replace_callback(
+        '/\<(o|u)l\>.*?\<\/(ol|ul)\>/ms',
+        function($matches) {
+            $matches[0] = preg_replace("/\<li\s+class=\"level(\d).*?\"\>/","<span class='anno_li_$1'>&nbsp;&nbsp; </span>", $matches[0]);
+            $matches[0] = preg_replace('/\<div\s+class.*?li\">/',"",$matches[0]);
+            $matches[0] = str_replace('</div>','<br>',$matches[0]);
+            return $matches[0];
+        },$html);
+        $html = preg_replace("/\<\/?(ul|ol|li)\>/","", $html);
+
 		$html = preg_replace('/<\/?div.*?>/ms',"",$html);
 		$html = preg_replace('/<!--.*?-->/ms',"",$html);	
 		return $html;

@@ -50,6 +50,30 @@ span.anno {
     border-bottom-width: 1px;
     
 }
+span[class*="anno_li"] {  
+    display: inline-block;	  
+
+}
+span.anno_li_1 {
+    min-width:  20px;
+}
+span.anno_li_2 {
+    min-width:  40px;
+}
+span.anno_li_3 {
+    min-width:  60px;
+}
+
+span.anno_li_4 {
+    min-width:  80px;
+}
+
+span.anno_li_5 {
+    min-width:  100px;
+}
+span.anno_li_6 {
+    min-width:  120px;
+}
 .extra_bold {
   font-weight: 900;
   font-size: 125%;
