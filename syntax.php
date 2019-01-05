@@ -148,7 +148,7 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
         },$html);
         
         $html = preg_replace_callback(
-        '/\<(o|u)l\>.*?\<\/ol\>/ms',
+         '/\<(o|u)l\>([\s\S]+)\<\/(o|u)l\>/ms',
         function($matches) {
             $matches[0] = preg_replace("/\<li\s+class=\"level(\d).*?\"\>/","<span class='anno_li_$1'>&nbsp;&nbsp; </span>", $matches[0]);
             $matches[0] = preg_replace('/\<div\s+class.*?li\">/',"",$matches[0]);
@@ -160,15 +160,20 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
        $html = preg_replace("/\<\/(ul|ol|li)\>/","", $html);
 
         $html = preg_replace_callback(
-           '/(\<o|u\>)(.*?)EOL/ms',
+          // '/(\<ol|ul\>)(.*?)EOL/ms',
+          '/(\<ol>|\<ul\>)(.*?)EOL/ms',
             function($matches) {
-             $type = ltrim('<',$matches[1]);
+             $type = "";              
+             $level_1 = 0;
+             $level_2 = 'abcdefghijklmnopqrstuvwxyz';
+             $level_5 = $level_3 = 'i,ii,iii,iv,v,vi,vii,viii,ix,x,xi,xii,xiii,xiv,xv,xvi,xvii,xviii,xix,xx,xxi,xxii,xxiii,xxiv,xxv,xxvi';
+             $level_4 = 'I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII,XXIII,XXIV,XXV,XXVI';
+                  
              $retv = "<br /><br />";
              $_list =  explode("\n", $matches[2]);           
              for($i=0; $i<count($_list); $i++) {
                  $_list[$i] = trim($_list[$i]);
                  if(!empty($_list[$i]) && $_list[$i] != 'l>'  ) {
-                  
                      if(preg_match("/\<ol>/",$_list[$i])) {
                          $type = 'o';
                          continue;
