@@ -148,17 +148,50 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
         },$html);
         
         $html = preg_replace_callback(
-        '/\<(o|u)l\>.*?\<\/(ol|ul)\>/ms',
+        '/\<(o|u)l\>.*?\<\/ol\>/ms',
         function($matches) {
             $matches[0] = preg_replace("/\<li\s+class=\"level(\d).*?\"\>/","<span class='anno_li_$1'>&nbsp;&nbsp; </span>", $matches[0]);
             $matches[0] = preg_replace('/\<div\s+class.*?li\">/',"",$matches[0]);
             $matches[0] = str_replace('</div>','<br>',$matches[0]);
-            return $matches[0];
+            return  $matches[0] ."\nEOL";
         },$html);
-        $html = preg_replace("/\<\/?(ul|ol|li)\>/","", $html);
+        //$html = preg_replace("/\<\/?(ul|ol|li)\>/","", $html);
+      
+       $html = preg_replace("/\<\/(ul|ol|li)\>/","", $html);
+
+        $html = preg_replace_callback(
+           '/(\<o|u\>)(.*?)EOL/ms',
+            function($matches) {
+             $type = ltrim('<',$matches[1]);
+             $retv = "<br /><br />";
+             $_list =  explode("\n", $matches[2]);           
+             for($i=0; $i<count($_list); $i++) {
+                 $_list[$i] = trim($_list[$i]);
+                 if(!empty($_list[$i]) && $_list[$i] != 'l>'  ) {
+                  
+                     if(preg_match("/\<ol>/",$_list[$i])) {
+                         $type = 'o';
+                         continue;
+                     }
+                     else if(preg_match("/\<ul>/",$_list[$i])) {
+                         $type = 'u';                         
+                         continue;
+                     }
+
+                    if($type == 'u') {
+                        $_list[$i] = str_replace("</span>", "</span>*",$_list[$i] );
+                    }
+                    $retv .= $_list[$i] ."\n";
+                 }
+             }
+                return $retv;
+            },$html);
+
+
 
 		$html = preg_replace('/<\/?div.*?>/ms',"",$html);
 		$html = preg_replace('/<!--.*?-->/ms',"",$html);	
+     
 		return $html;
 	}
     
