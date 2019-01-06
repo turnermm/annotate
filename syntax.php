@@ -68,12 +68,26 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
 		   $match = str_replace(':','_',substr($match,2,-1));	
 			   return array($state, $match);
           case DOKU_LEXER_UNMATCHED :  
+              if(preg_match("/<top>([\w\:]+)\<\/top\>/m",$match,$matches)) {
+                   $id = $matches[1];
+                   $text = io_readWikiPage(wikiFN($id, $rev), $id, false);
+                   if($text) {
+                      $match = preg_replace("/<top>.*?<\/top>/ms", "\n$text",$match);
+                  }                  
+              }    
+              if(preg_match("/<bottom>([\w\:]+)\<\/bottom\>/m",$match,$matches)) {
+                   $id = $matches[1];
+                   $text = io_readWikiPage(wikiFN($id, $rev), $id, false);
+                   if($text) {
+                      $match = preg_replace("/<bottom>.*?<\/bottom>/ms", "\\\\\\ $text",$match);
+                  }                  
+              }    
+              
             //  msg(htmlentities($match));		  
               return array($state, $match);
           case DOKU_LEXER_EXIT :   return array($state, '');                
           case DOKU_LEXER_SPECIAL: 			  
 		      $inner = substr($match,6,-7);
-			 // msg($inner);	
 			  return array($state, $inner); 
        }
          return array($state, "" );
@@ -99,7 +113,8 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
 				  	   $html = p_wiki_xhtml($matches[1]); 
 			        }
 			       else {
-				      $html = html_secedit(p_render('xhtml',p_get_instructions($xhtml),$info),$secedit);				 
+                      $secedit = false;
+				      $html = html_secedit(p_render('xhtml',p_get_instructions($xhtml),$info),$secedit);				 //$info is reference, $secedit is handled by html_secedit
  				} 
 				$html = $this->html_filter($html);				
                 $renderer->doc .= $html;  break;
@@ -143,7 +158,7 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
             $matches[1] = str_replace($replace, $replacements,$matches[1]);
             $matches[1] = preg_replace("/\<tr\s+class=\"row\d\">/","",$matches[1]);
             $matches[1] = preg_replace(array("/\<tr\s+class=\"row\d\">/","/col\d+/"),array("",'anno_col'),$matches[1]);           
-            $matches[1] = preg_replace('/\"anno_col\"\s+colspan=\"(\d)\"/',"anno_colspan_$1",$matches[1]);            
+            $matches[1] = preg_replace('/\"anno_col\"\s+colspan=\"(\d)\"/',"anno_colspan_$1",$matches[1]);  
             $matches[1] = preg_replace("/span_h\s+class=\"/","span class=\"theader ",$matches[1]); 
             $matches[1] = str_replace('/span_h','/span',$matches[1]);       
             return'<br>' . $matches[1] .'<br />';
@@ -176,24 +191,24 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
          'anno_li_7'=>0,'anno_li_8'=>0);
 
      $_list =  explode("\n", $matches[2]);
-             $retv = "<br /><br />";
+     $retv = "<br /><br />";
 
-             for($i=0; $i<count($_list); $i++) {
-                 $_list[$i] = trim($_list[$i]);
+     for($i=0; $i<count($_list); $i++) {
+         $_list[$i] = trim($_list[$i]);
 
          if(!empty($_list[$i])) {
-                     if(preg_match("/\<ol>/",$_list[$i])) {
-                         $type = 'o';
-                         continue;
-                     }
+             if(preg_match("/\<ol>/",$_list[$i])) {
+                 $type = 'o';
+                 continue;
+             }
              else if(preg_match("/\<ul\>/",$_list[$i])) {
-                         $type = 'u';                         
-                         continue;
-                     }
+                 $type = 'u';
+                 continue;
+             }
 
-                    if($type == 'u') {
-                        $_list[$i] = str_replace("</span>", "</span>*",$_list[$i] );
-                    }
+             if($type == 'u') {
+                 $_list[$i] = str_replace("</span>", "</span>*",$_list[$i] );
+             }
              else {
                 if(preg_match("/(anno_li_(\d))/",$_list[$i],$match)) {
                     if($match[1] == 'anno_li_1') {
@@ -209,11 +224,11 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
                     }
                 }
              }
-                    $retv .= $_list[$i] ."\n";
-                 }
-             }
-                return $retv;
-            },$html);
+             $retv .= $_list[$i] ."\n";
+         }
+     }
+        return $retv;
+    },$html);
 
 
 		$html = preg_replace('/<\/?div.*?>/ms',"",$html);

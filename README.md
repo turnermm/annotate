@@ -10,4 +10,12 @@ on the click of a button.
   
   wiki-text is dokuwiki text for annotation
   
-  namespace:page is a dokwiki page which will be read into the annotation block
+  namespace:page is a dokwiki page which will be read into the annotation block; thie form atakes only the wiki page and no other text.
+
+  Internal markup:  
+  ```
+  <anno:20>text</anno><@anno:20><top>wiki:page</top>wiki text<bottom>wiki:page</bottom></@anno>
+  <anno:20>text</anno><@anno:20>wiki text<bottom>wiki:page</bottom></@anno>
+  <anno:20>text</anno><@anno:20>wiki text</@anno>
+  ```
+  The ```top`` and ``bottom``` tags enable repeatable headers and footers to be read into the annotations.  
