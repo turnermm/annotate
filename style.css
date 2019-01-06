@@ -1,6 +1,6 @@
 .annotation {
 	border: 2px solid black;
-	width: 600px;
+	width: 620px;
 	height: 120px;
 	overflow:auto;
 	padding: 8px;
@@ -26,7 +26,7 @@ span.anno_exit {
 
 span.anno_col {
     border: 1px solid gray;
-    min-width:60px;
+    min-width:80px;
     display: inline-block;	
 }
 span.anno_colspan_2 {
@@ -50,6 +50,16 @@ span.anno {
     border-bottom-width: 1px;
     
 }
+span.theader {
+    font-weight:bold;
+    background-color:  #eee;
+}
+
+span.centeralign {
+   text-align:center;
+    
+}
+
 span[class*="anno_li"] {  
     display: inline-block;	  
     text-align: right;

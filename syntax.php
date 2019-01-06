@@ -139,11 +139,13 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
         '/<table[^>]+>(.*?)<\/table>/ms',
         function($matches) {
             $replace = array('td','th','</tr>');
-            $replacements = array('span','span','<br/>');
+            $replacements = array('span','span_h','<br/>');
             $matches[1] = str_replace($replace, $replacements,$matches[1]);
             $matches[1] = preg_replace("/\<tr\s+class=\"row\d\">/","",$matches[1]);
             $matches[1] = preg_replace(array("/\<tr\s+class=\"row\d\">/","/col\d+/"),array("",'anno_col'),$matches[1]);           
             $matches[1] = preg_replace('/\"anno_col\"\s+colspan=\"(\d)\"/',"anno_colspan_$1",$matches[1]);            
+            $matches[1] = preg_replace("/span_h\s+class=\"/","span class=\"theader ",$matches[1]); 
+            $matches[1] = str_replace('/span_h','/span',$matches[1]);       
             return'<br>' . $matches[1] .'<br />';
         },$html);
         
@@ -167,8 +169,9 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
      $anno_li_1 = 0;
      $an_li_2 = 0;
      $anno_li_2 = 'abcdefghijklmnopqrstuvwxyz';
-     $anno_li_8=$anno_li_7=$anno_li_6 =$anno_li_5 = $anno_li_3 = array('i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi');
+     $anno_li_8=$anno_li_7=$anno_li_6 =$anno_li_3 = array('i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi');
      $anno_li_4 = array('I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI');
+     $anno_li_5 = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');     
      $current = array('anno_li_0' => 0,'anno_li_1' => 0,'anno_li_2' => 0,'anno_li_3'=>0,'anno_li_4'=>0,'anno_li_5'=>0,'anno_li_6'=>0,
          'anno_li_7'=>0,'anno_li_8'=>0);
 
@@ -195,15 +198,12 @@ class syntax_plugin_annotate extends DokuWiki_Syntax_Plugin {
                 if(preg_match("/(anno_li_(\d))/",$_list[$i],$match)) {
                     if($match[1] == 'anno_li_1') {
                         $anno_li_1++;
-                        $_list[$i] = str_replace('&nbsp;',$anno_li_1,$_list[$i]);
-                        // echo $anno_li_1 ."\n";
-                        // echo $_list[$i] . "\n";
+                        $_list[$i] = str_replace('&nbsp;',$anno_li_1,$_list[$i]);  // Insert current number 
                     }
                     else {
-                        $current[$match[1]]++;
-                   //     echo $match[1] . "= " . $current[$match[1]] . "\n";
-                        $b = $match[1];
-                        $a = ${$b};
+                        $current[$match[1]]++;       // $current[ 'anno_li_<n>']         
+                        $b = $match[1]; // anno_li_<n>
+                        $a = ${$b};  //   $anno_li_<n>
                         $marker = $a[$current[$match[1]]];
                         $_list[$i] = str_replace('&nbsp;',$marker,$_list[$i]);
                     }
