@@ -52,7 +52,7 @@ span.anno {
 }
 span[class*="anno_li"] {  
     display: inline-block;	  
-
+    text-align: right;
 }
 span.anno_li_1 {
     min-width:  20px;
