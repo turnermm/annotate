@@ -19,8 +19,15 @@
            jQuery("span." + title).css('display','inline-block');           
            }, tm);         
     }
-    
-    jQuery("span.annotation").click(function() {     
+
+   jQuery("span.annotation").mouseover(function() {     
+	 jQuery(this).css('display','inline-block');
+   });	
+   jQuery("span.annotation").mouseout(function() {     
+	// jQuery(this).css('display','none');
+   });	
+
+   jQuery("span.annotation").click(function() {     
 	 jQuery(this).css('display','none');
    });	
    
