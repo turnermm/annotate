@@ -114,7 +114,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 				  	   $html = p_wiki_xhtml($matches[1]); 
 			        }
 			       else {
-                      $secedit = false;
+                      $secedit = false;                  
 				      $html = html_secedit(p_render('xhtml',p_get_instructions($xhtml),$info),$secedit);				 //$info is reference, $secedit is handled by html_secedit
  				} 
 				$html = $this->html_filter($html);				
@@ -124,7 +124,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 				case DOKU_LEXER_SPECIAL:				
 					list($which,$text)= explode('>',$xhtml); 
                     $title = 'anno_' .$which;
-				    $renderer->doc .= '<span class="anno" title="' .$title.'">' .htmlentities($text).'</span>';				     break;	
+				    $renderer->doc .= '<span class="anno" title="' .$title.'">' .htmlentities($text).'</span>'; break;	
 				
         }
            return true;
@@ -133,6 +133,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
     }
 	
 	function html_filter($html){
+       $html = str_replace(array('[List]','[tsiL]'),"",$html);   
 	   $html = preg_replace('/<\/?p>/ms',"",$html);
 	   $html = preg_replace_callback('/<(\/)?h(\d).*?>/ms',
 		function($matches){
@@ -164,7 +165,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
             $matches[1] = str_replace('/span_h','/span',$matches[1]);       
             return'<br>' . $matches[1] .'<br />';
         },$html);
-        
+ 
         $html = preg_replace_callback(
          '/\<(o|u)l\>([\s\S]+)\<\/(o|u)l\>/ms',
         function($matches) {
@@ -181,7 +182,13 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
           '/(\<ol>|\<ul\>)(.*?)EOL/ms',
             function($matches) {
              $type = "";              
-                  
+    /*
+ol             { list-style: decimal outside; }
+ol ol          { list-style-type: lower-alpha; }
+ol ol ol       { list-style-type: upper-roman; }
+ol ol ol ol    { list-style-type: upper-alpha; }
+ol ol ol ol ol { list-style-type: lower-roman; }
+*/    
      $anno_li_1 = 0;
      $an_li_2 = 0;
      $anno_li_2 = 'abcdefghijklmnopqrstuvwxyz';
@@ -192,7 +199,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
          'anno_li_7'=>0,'anno_li_8'=>0);
 
      $_list =  explode("\n", $matches[2]);
-     $retv = "<br /><br />";
+     $retv = "<br />";
 
      for($i=0; $i<count($_list); $i++) {
          $_list[$i] = trim($_list[$i]);
