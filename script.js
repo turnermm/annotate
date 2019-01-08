@@ -28,7 +28,7 @@
    });	
    */
 
-   jQuery("span.annotation").click(function() {     
+   jQuery("span.annotation").dblclick(function() {     
 	 jQuery(this).css('display','none');
    });	
    

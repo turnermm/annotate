@@ -16,8 +16,8 @@ on the click of a button.
   ```
   <anno:20>text</anno><@anno:20><top>wiki:page</top>wiki text<bottom>wiki:page</bottom></@anno>
   <anno:20>text</anno><@anno:20>wiki text<bottom>wiki:page</bottom></@anno>
-  <anno:20>text</anno><@anno:20>wiki text</@anno>
+  <anno:20>text</anno><@anno:20><top>wiki:page</top>wiki text</@anno>
   ```
 The ```top and bottom``` tags enable repeatable headers and footers to be read into the annotations.
     
-List must be prefaced by ```[List] and ended with tsiL```
+The list must be prefaced by ```[List] and ended with tsiL```
