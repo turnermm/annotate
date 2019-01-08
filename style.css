@@ -1,6 +1,6 @@
 .annotation {
 	border: 2px solid black;
-	width: 600px;
+	width: 620px;
 	height: 120px;
 	overflow:auto;
 	padding: 8px;
@@ -24,6 +24,22 @@ span.anno_exit {
 	cursor: pointer;	
 }
 
+span.anno_col {
+    border: 1px solid gray;
+    min-width:80px;
+    display: inline-block;	
+}
+span.anno_colspan_2 {
+      border: 1px solid gray;
+    min-width:120px;
+    display: inline-block;	
+}
+span.anno_colspan_3 {
+      border: 1px solid gray;
+    min-width:180px;
+    display: inline-block;	
+}
+
 span.anno {
     cursor: help;
 	text-decoration-line: underline;
@@ -33,4 +49,47 @@ span.anno {
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     
+}
+span.theader {
+    font-weight:bold;
+    background-color:  #eee;
+}
+
+span.centeralign {
+   text-align:center;
+    
+}
+
+span[class*="anno_li"] {  
+    display: inline-block;	  
+    text-align: right;
+}
+span.anno_li_1 {
+    min-width:  20px;
+}
+span.anno_li_2 {
+    min-width:  40px;
+}
+span.anno_li_3 {
+    min-width:  60px;
+}
+
+span.anno_li_4 {
+    min-width:  80px;
+}
+
+span.anno_li_5 {
+    min-width:  100px;
+}
+span.anno_li_6 {
+    min-width:  120px;
+}
+span.anno_li_7 {
+    min-width:  130px;
+}span.anno_li_8 {
+    min-width:  140px;
+}
+.extra_bold {
+  font-weight: 900;
+  font-size: 125%;
 }
