@@ -24,7 +24,7 @@
 	 jQuery(this).css('display','inline-block');
    });	
    jQuery("span.annotation").mouseout(function() {     
-	// jQuery(this).css('display','none');
+     jQuery(this).css('display','none');
    });	
 
    jQuery("span.annotation").click(function() {     

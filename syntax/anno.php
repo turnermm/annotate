@@ -17,7 +17,7 @@ define("BULLET_PNG", DOKU_REL ."lib/plugins/annotate/bullet.png");
 //msg(BULLET_PNG);
 class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 
-
+    var $test_str;
     /**
      * What kind of syntax are we?
      */
@@ -39,7 +39,9 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
     function getSort(){
         return 155;
     }
-
+    public function  __construct() {
+      $this->test_str = '';
+    }
 
     /**
      * Connect pattern to lexer
@@ -190,9 +192,8 @@ ol ol ol ol    { list-style-type: upper-alpha; }
 ol ol ol ol ol { list-style-type: lower-roman; }
 */    
      $anno_li_1 = 0;
-     $an_li_2 = 0;
-     $anno_li_2 = 'abcdefghijklmnopqrstuvwxyz';
-     $anno_li_8=$anno_li_7=$anno_li_6 =$anno_li_3 = array('i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi');
+     $anno_li_3 = 'abcdefghijklmnopqrstuvwxyz';
+     $anno_li_2 = $anno_li_8=$anno_li_7=$anno_li_6 = array('i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi');
      $anno_li_4 = array('I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI');
      $anno_li_5 = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');     
      $current = array('anno_li_0' => 0,'anno_li_1' => 0,'anno_li_2' => 0,'anno_li_3'=>0,'anno_li_4'=>0,'anno_li_5'=>0,'anno_li_6'=>0,
@@ -215,20 +216,20 @@ ol ol ol ol ol { list-style-type: lower-roman; }
              }
 
              if($type == 'u') {
-                 $_list[$i] = str_replace("</span>", "</span><img src=\"" . BULLET_PNG ."\">",$_list[$i] );
+                 $_list[$i] = str_replace("</span>", "<img src=\"" . BULLET_PNG ."\"></span>",$_list[$i] );
              }
              else {
                 if(preg_match("/(anno_li_(\d))/",$_list[$i],$match)) {
                     if($match[1] == 'anno_li_1') {
                         $anno_li_1++;
-                        $_list[$i] = str_replace('&nbsp;',$anno_li_1,$_list[$i]);  // Insert current number 
+                        $_list[$i] = str_replace('&nbsp;',$anno_li_1,$_list[$i]);  // Insert current number                      
                     }
                     else {
-                        $current[$match[1]]++;       // $current[ 'anno_li_<n>']         
                         $b = $match[1]; // anno_li_<n>
                         $a = ${$b};  //   $anno_li_<n>
                         $marker = $a[$current[$match[1]]];
                         $_list[$i] = str_replace('&nbsp;',$marker,$_list[$i]);
+                        $current[$match[1]]++;       // $current[ 'anno_li_<n>']         
                     }
                 }
              }
