@@ -89,6 +89,22 @@ span.anno_li_7 {
 }span.anno_li_8 {
     min-width:  140px;
 }
+.h3_bold{
+  font-weight: 600;
+  font-size: 125%;
+}
+.h1_bold {
+   font-weight: 650;
+  font-size: 200%;
+}
+.h2_bold {
+  font-weight: 650;
+  font-size: 150%;
+}
+.h4_bold {
+  font-weight: 600;
+  font-size: 115%;
+}
 .extra_bold {
   font-weight: 900;
   font-size: 125%;

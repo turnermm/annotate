@@ -146,8 +146,20 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 				}						
 			}
 			else {
-				if($matches[2] <= 3){
-				  $style = '<br /><b class="extra_bold">';
+				if($matches[2] <= 4){                    
+                    if($matches[2] == 1) {
+                        $style = '<br /><b class="h1_bold">';                        
+                    }
+                    else if($matches[2] == 2) {
+                        $style = '<br /><b class="h2_bold">';                        
+                    }                    
+                    else if($matches[2] == 3) {
+                        $style = '<br /><b class="h3_bold">';                        
+                    }       
+                    else if($matches[2] == 4) {
+                        $style = '<br /><b class="h4_bold">';                        
+                    }                           
+				  //  else $style = '<br /><b class="extra_bold">';
 				}
 				else $style = '<br /><b>';
 			}
