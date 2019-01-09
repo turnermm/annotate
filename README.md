@@ -8,11 +8,11 @@ on the click of a button.
 ```
   text is what the annotation explains
   
-  wiki-text is dokuwiki text for annotation
+  wiki-text is the text requiring annotation
   
-  namespace:page is a dokwiki page which will be read into the annotation block; thie form atakes only the wiki page and no other text.
+  namespace:page is a dokwiki page which will be read into the annotation block; this form takes only the wiki page and no other text.
 
-  Internal markup:  
+  **Internal markup:**   
   ```
   <anno:20>text</anno><@anno:20><top>wiki:page</top>wiki text<bottom>wiki:page</bottom></@anno>
   <anno:20>text</anno><@anno:20>wiki text<bottom>wiki:page</bottom></@anno>
