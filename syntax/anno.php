@@ -51,6 +51,10 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 		 '<@anno:\d\d?>(?=.*?</@anno>)',$mode,
 		 'plugin_annotate_anno');
 		 
+		 $this->Lexer->addEntryPattern(
+		 '<@anno:\[\d\d?;;\w+\]>(?=.*?</@anno>)',$mode,
+		 'plugin_annotate_anno');		 
+		 
 		 $this->Lexer->addSpecialPattern(
 		 '<anno:\d\d?>.*?</anno>',$mode,'plugin_annotate_anno');	
       
@@ -68,7 +72,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 
         switch($state) {    
           case DOKU_LEXER_ENTER :
-		   $match = str_replace(':','_',substr($match,2,-1));	
+		      $match = str_replace(array(':', ';',  '[' , ']'),   array('_'," ","",""),substr($match,2,-1));				 
 			   return array($state, $match);
           case DOKU_LEXER_UNMATCHED :  
               if(preg_match("/<top>([\w\:]+)\<\/top\>/m",$match,$matches)) {

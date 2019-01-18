@@ -6,6 +6,12 @@
 	padding: 8px;
 	display: none;
 }
+.anno_narrow{
+	height: 60px;
+}
+.anno_deep{
+	height: 160px;
+}
 #anno_close {
      min-width: 590px;
      background-color: #eee;
