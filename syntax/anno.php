@@ -254,10 +254,10 @@ ol ol ol ol ol { list-style-type: lower-roman; }
      }
         return $retv;
     },$html);
-
+$html  = str_replace('<hr />','<br /><span class="anno_hr">text</span><br />',$html);
 $html = str_replace('<blockquote>', '<br /><span class = "anno_blockquote">',$html);
 $html = str_replace('</blockquote>', '</span>',$html);
-//msg($html);
+
 		$html = preg_replace('/<\/?div.*?>/ms',"",$html);
 		$html = preg_replace('/<!--.*?-->/ms',"",$html);	
      
