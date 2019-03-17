@@ -1,4 +1,4 @@
-.annotation {
+.annotation, .annotation_r{
 	border: 2px solid black;
 	width: 620px;
 	height: 120px;
@@ -6,13 +6,20 @@
 	padding: 8px;
 	display: none;
 }
-.anno_narrow{
+.anno_narrow, .anno_narrow_r {
 	height: 60px;
 }
-.anno_deep{
+
+.anno_deep, .anno_deep_r{
 	height: 160px;
 }
+
+.anno_narrow_r ,.anno_deep_r, .annotation_r {
+    border-radius: 15px;
+ }
+ 
 #anno_close {
+//   border-radius: 10px;
      min-width: 590px;
      background-color: #eee;
      display: inline-block;	
