@@ -55,6 +55,10 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 		 '<@anno:\[\d\d?;;\w+\]>(?=.*?</@anno>)',$mode,
 		 'plugin_annotate_anno');		 
 		 
+	    $this->Lexer->addEntryPattern(
+		 '<@anno:\[\d\d?;;\w+;;\w+\]>(?=.*?</@anno>)',$mode,
+		 'plugin_annotate_anno');			 
+		 
 		 $this->Lexer->addSpecialPattern(
 		 '<anno:\d\d?>.*?</anno>',$mode,'plugin_annotate_anno');	
       

@@ -21,12 +21,6 @@
     }
 
       jQuery("span.annotation span#anno_close") .each(function() {       
-   //   var radius =  jQuery(this).css('border-radius');
-  //    console.log(radius);
- //   jQuery(this).css('border-radius','10px');
-    });
-    
-      jQuery("span.annotation span#anno_close") .each(function() {       
          var clss = jQuery(this).parent().attr('class');
          if(typeof clss != 'undefined') {
              if(clss.match(/_r/) ) {

@@ -19,7 +19,6 @@
  }
  
 #anno_close {
-//   border-radius: 10px;
      min-width: 590px;
      background-color: #eee;
      display: inline-block;	
@@ -28,6 +27,10 @@
 	 text-align: right;
      font-size: 85%;	 
 }
+/*
+span.anno_narrow_r #anno_close {
+	display: none;	
+}*/	
 span.anno_exit {
 	min-width:50px;
 	display: inline-block;	
