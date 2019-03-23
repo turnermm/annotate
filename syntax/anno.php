@@ -52,11 +52,11 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 		 'plugin_annotate_anno');
 		 
 		 $this->Lexer->addEntryPattern(
-		 '<@anno:\[\d\d?;;\w+\]>(?=.*?</@anno>)',$mode,
-		 'plugin_annotate_anno');		 
+		 '<@anno:\[\d\d?;;\s*\w+\s*]>(?=.*?</@anno>)',$mode,
+		 'plugin_annotate_anno');	
 		 
 	    $this->Lexer->addEntryPattern(
-		 '<@anno:\[\d\d?;;\w+;;\w+\]>(?=.*?</@anno>)',$mode,
+		 '<@anno:\[\d\d?;;\s*\w+\s*;;\s*\w+\s*\]>(?=.*?</@anno>)',$mode,
 		 'plugin_annotate_anno');			 
 		 
 		 $this->Lexer->addSpecialPattern(
@@ -114,7 +114,14 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
             list($state, $xhtml) = $data;
             switch ($state) {
                 case DOKU_LEXER_ENTER : 
-				    $tip = '<span class="annotation ui-widget-content '. $xhtml . '">';
+                   $classes = preg_split("/\s+/", $xhtml);		
+                   $xhtml	 = rtrim(implode(' ',$classes));			   
+                   if (count($classes) > 1) {
+                       $tip = '<span class="' . $xhtml . ' anno_dclk ui-widget-content">';
+                   }
+                    else {
+				       $tip = '<span class="annotation ui-widget-content '. $xhtml . '">';
+                    }
 				    $renderer->doc .= $tip;
 				break;                                                        
                 case DOKU_LEXER_UNMATCHED : 
