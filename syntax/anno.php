@@ -117,7 +117,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
                    $classes = preg_split("/\s+/", $xhtml);		
                    $xhtml	 = rtrim(implode(' ',$classes));			   
                    if (count($classes) > 1) {
-                       $tip = '<span class="' . $xhtml . ' anno_dclk ui-widget-content">';
+                       $tip = '<span class="' . $xhtml . ' anno-dclk-over ui-widget-content">';
                    }
                     else {
 				       $tip = '<span class="annotation ui-widget-content '. $xhtml . '">';

@@ -29,16 +29,16 @@
          }
     });
     
-/*anno_dclk */
-   jQuery("span.annotation, .anno_dclk").mouseover(function() {     
+/*anno-dclk-over */
+   jQuery("span.annotation, .anno-dclk-over").mouseover(function() {     
 	 jQuery(this).css('display','inline-block');
    });	
-   jQuery("span.annotation, .anno_dclk").mouseout(function() {     
+   jQuery("span.annotation, .anno-dclk-over").mouseout(function() {     
      jQuery(this).css('display','none');
    });	
 
 
-   jQuery("span.annotation, .anno_dclk").dblclick(function() {     
+   jQuery("span.annotation, .anno-dclk-over").dblclick(function() {     
 	 jQuery(this).css('display','none');
    });	
    
