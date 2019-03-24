@@ -16,11 +16,11 @@
               jQuery(last_anno_open) .css('display','none');
            }
            last_anno_open = "span." + title;
-           jQuery("span." + title).css('display','inline-block');           
+           jQuery("p." + title).css('display','inline-block');           
            }, tm);         
     }
 
-      jQuery("span.annotation span#anno_close") .each(function() {       
+      jQuery("span#anno_close") .each(function() {       
          var clss = jQuery(this).parent().attr('class');
          if(typeof clss != 'undefined') {
              if(clss.match(/_r/) ) {
@@ -30,15 +30,16 @@
     });
     
 /*anno-dclk-over */
-   jQuery("span.annotation, .anno-dclk-over").mouseover(function() {     
+/*span[class*='anno-dclk-over']*/
+   jQuery("span[class*='annotation'],p[class*='annotation'], .anno-dclk-over").mouseover(function() {     
 	 jQuery(this).css('display','inline-block');
    });	
-   jQuery("span.annotation, .anno-dclk-over").mouseout(function() {     
+   jQuery("span[class*='annotation'],p[class*='annotation'], .anno-dclk-over").mouseout(function() {     
      jQuery(this).css('display','none');
    });	
 
 
-   jQuery("span.annotation, .anno-dclk-over").dblclick(function() {     
+   jQuery("span[class*='annotation'],p[class*='annotation'], .anno-dclk-over").dblclick(function() {     
 	 jQuery(this).css('display','none');
    });	
    

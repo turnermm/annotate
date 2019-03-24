@@ -117,10 +117,10 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
                    $classes = preg_split("/\s+/", $xhtml);		
                    $xhtml	 = rtrim(implode(' ',$classes));			   
                    if (count($classes) > 1) {
-                       $tip = '<span class="' . $xhtml . ' anno-dclk-over ui-widget-content">';
+                       $tip = '<p class="' . $xhtml . ' anno-dclk-over ui-widget-content">';
                    }
                     else {
-				       $tip = '<span class="annotation ui-widget-content '. $xhtml . '">';
+				       $tip = '<p class="annotation ui-widget-content '. $xhtml . '">';
                     }
 				    $renderer->doc .= $tip;
 				break;                                                        
@@ -137,7 +137,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 				$html = $this->html_filter($html);				
                 $renderer->doc .= $html;  break;
                 case DOKU_LEXER_EXIT : 
-				    $renderer->doc .= "</span>"; break; 
+				    $renderer->doc .= "</p>"; break; 
 				case DOKU_LEXER_SPECIAL:				
 					list($which,$text)= explode('>',$xhtml); 
                     $title = 'anno_' .$which;
