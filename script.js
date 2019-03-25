@@ -12,10 +12,17 @@
     
     function open_anno(title,tm) {
        setTimeout(function() {
+		    var elem;
             if(last_anno_open)     {
               jQuery(last_anno_open) .css('display','none');
            }
-           last_anno_open = "span." + title;
+		   if(jQuery("p." + title)) {	
+		      elem = 'p';
+		   }
+           else {
+			   elem = 'span';
+		   }			   
+           last_anno_open = elem + '.' + title;		 
            jQuery("p." + title).css('display','inline-block');           
            }, tm);         
     }
@@ -24,6 +31,9 @@
          var clss = jQuery(this).parent().attr('class');
          if(typeof clss != 'undefined') {
              if(clss.match(/_r/) ) {
+				if (!jQuery(this).parent().css('border-radius')) {
+				    jQuery(this).parent().css('border-radius','15px');
+				}
                  jQuery(this).css('border-radius','10px');
              }
          }
