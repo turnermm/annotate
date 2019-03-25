@@ -1,8 +1,11 @@
+ /**
+  * @author Myron Turner <turnermm02@shaw.ca>
+  */
  jQuery( document ).ready(function() {    
   var last_anno_open; 
    jQuery("span.anno") .mouseover(function() {       
       var title = jQuery( this ).attr('title');     
-      open_anno(title,1200);
+      open_anno(title,600);
     });
     
   jQuery("span.anno") .click(function() {       
@@ -41,18 +44,19 @@
     
 /*anno-dclk-over */
 /*span[class*='anno-dclk-over']*/
+   if(JSINFO['anno_mouseout']) {       
    jQuery("span[class*='annotation'],p[class*='annotation'], .anno-dclk-over").mouseover(function() {     
 	 jQuery(this).css('display','inline-block');
    });	
    jQuery("span[class*='annotation'],p[class*='annotation'], .anno-dclk-over").mouseout(function() {     
      jQuery(this).css('display','none');
    });	
-
-
+   }
+    if(JSINFO['anno_dblclick']) {   
    jQuery("span[class*='annotation'],p[class*='annotation'], .anno-dclk-over").dblclick(function() {     
 	 jQuery(this).css('display','none');
    });	
-   
+   }
    jQuery("span.anno_exit").click(function() {     
 	 jQuery(this).parent().parent().css('display','none');
     });	

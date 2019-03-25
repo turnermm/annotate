@@ -2,8 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
-   *
-   * class       plugin_ckgedit_specials
+   * class        syntax_plugin_annotate_anno
    * @author     Myron Turner <turnermm02@shaw.ca>
 */
         
@@ -93,8 +92,6 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
                       $match = preg_replace("/<bottom>.*?<\/bottom>/ms", "\\\\\\ $text",$match);
                   }                  
               }    
-              
-            //  msg(htmlentities($match));		  
               return array($state, $match);
           case DOKU_LEXER_EXIT :   return array($state, '');                
           case DOKU_LEXER_SPECIAL: 			  
@@ -116,6 +113,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
                 case DOKU_LEXER_ENTER : 
                    $classes = preg_split("/\s+/", $xhtml);		
                    $xhtml	 = rtrim(implode(' ',$classes));			   
+                  
                    if (count($classes) > 1) {
                        $tip = '<p class="' . $xhtml . ' anno-dclk-over ui-widget-content">';
                    }
