@@ -20,7 +20,7 @@
     border-radius: 15px;
  }
  
-#anno_close {
+span[id^='anno_close'] {
      min-width: 590px;
      background-color: #eee;
      display: inline-block;	

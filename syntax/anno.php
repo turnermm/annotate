@@ -106,14 +106,14 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
      * Create output
      */
     function render($mode, Doku_Renderer $renderer, $data) {
-		
+		static $last;
         if($mode == 'xhtml'){
             list($state, $xhtml) = $data;
             switch ($state) {
                 case DOKU_LEXER_ENTER : 
                    $classes = preg_split("/\s+/", $xhtml);		
                    $xhtml	 = rtrim(implode(' ',$classes));			   
-                  
+				   $last = $classes[0];                  
                    if (count($classes) > 1) {
                        $tip = '<p class="' . $xhtml . ' anno-dclk-over ui-widget-content">';
                    }
@@ -123,7 +123,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
 				    $renderer->doc .= $tip;
 				break;                                                        
                 case DOKU_LEXER_UNMATCHED : 
-                $renderer->doc .= '<span id="anno_close"><span class="anno_exit">close</span> </span>';
+                $renderer->doc .= '<span id="anno_close_' . $last . '"><span class="anno_exit">close</span> </span>';
        		    $xhtml = trim($xhtml);				
                 if(preg_match('/^\{\{([\w\:]+)\}\}$/',$xhtml,$matches)) {					
 				  	   $html = p_wiki_xhtml($matches[1]); 

@@ -30,7 +30,7 @@
            }, tm);         
     }
 
-      jQuery("span#anno_close") .each(function() {       
+      jQuery("span[id^='anno_close'") .each(function() {       
          var clss = jQuery(this).parent().attr('class');
          if(typeof clss != 'undefined') {
              if(clss.match(/_r/) ) {
@@ -62,6 +62,5 @@
     });	
 });
     
- 	
 
 

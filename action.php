@@ -15,7 +15,7 @@ class action_plugin_annotate extends DokuWiki_Action_Plugin {
         $JSINFO['anno_mouseout'] = $this->getConf('mouseout') ;
         $JSINFO['anno_dblclick'] = $this->getConf('dblclick') ;
         $JSINFO['anno_radius'] = $this->getConf('radius') ;
-        msg('<pre>' .print_r($JSINFO,1) .'</pre>');
+      //  msg('<pre>' .print_r($JSINFO,1) .'</pre>');
     }
   }  
 	
