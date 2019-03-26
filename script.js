@@ -1,3 +1,6 @@
+ /**
+  * @author Myron Turner <turnermm02@shaw.ca>
+  */
  jQuery( document ).ready(function() {    
   var last_anno_open; 
    jQuery("span.anno") .mouseover(function() {       
@@ -20,13 +23,23 @@
            }, tm);         
     }
 
+     jQuery("span[id^='anno_close'") .each(function() {       
+         var clss = jQuery(this).parent().attr('class');
+         if(typeof clss != 'undefined') {
+             if(clss.match(/_r/) ) {
+				if (!jQuery(this).parent().css('border-radius')) {
+				    jQuery(this).parent().css('border-radius','15px');
+				}
+                 jQuery(this).css('border-radius','10px');
+             }
+         }
+    });
+	
    jQuery("span.annotation").mouseover(function() {    
         show( jQuery(this));  
-	// jQuery(this).css('display','inline-block');
    });	
    jQuery("span.annotation").mouseout(function() {     
        hide(jQuery(this));
-    // jQuery(this).css('display','none');
    });	
 
    jQuery("span.annotation").dblclick(function() {     
