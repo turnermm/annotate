@@ -35,14 +35,14 @@
          }
     });
 	
-   jQuery("span.annotation").mouseover(function() {    
+   jQuery("span.anno-dclk-over").mouseover(function() {    
         show( jQuery(this));  
    });	
-   jQuery("span.annotation").mouseout(function() {     
+   jQuery("span.anno-dclk-over").mouseout(function() {     
        hide(jQuery(this));
    });	
 
-   jQuery("span.annotation").dblclick(function() {     
+   jQuery("span.anno-dclk-over").dblclick(function() {     
        hide(jQuery(this));
    });	
    
