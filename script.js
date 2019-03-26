@@ -2,7 +2,7 @@
   var last_anno_open; 
    jQuery("span.anno") .mouseover(function() {       
       var title = jQuery( this ).attr('title');     
-      open_anno(title,1200);
+      open_anno(title,600);
     });
     
   jQuery("span.anno") .click(function() {       
@@ -13,28 +13,36 @@
     function open_anno(title,tm) {
        setTimeout(function() {
             if(last_anno_open)     {
-              jQuery(last_anno_open) .css('display','none');
+                  hide(	jQuery(last_anno_open));	   
            }
            last_anno_open = "span." + title;
-           jQuery("span." + title).css('display','inline-block');           
+		     show(jQuery("span." + title));
            }, tm);         
     }
 
-/*   jQuery("span.annotation").mouseover(function() {     
-	 jQuery(this).css('display','inline-block');
+   jQuery("span.annotation").mouseover(function() {    
+        show( jQuery(this));  
+	// jQuery(this).css('display','inline-block');
    });	
    jQuery("span.annotation").mouseout(function() {     
-     jQuery(this).css('display','none');
+       hide(jQuery(this));
+    // jQuery(this).css('display','none');
    });	
-   */
 
    jQuery("span.annotation").dblclick(function() {     
-	 jQuery(this).css('display','none');
+       hide(jQuery(this));
    });	
    
    jQuery("span.anno_exit").click(function() {     
-	 jQuery(this).parent().parent().css('display','none');
+	    hide( jQuery(this).parent().parent());
     });	
+	
+	var show = function(object) {
+		object.css('visibility','visible');
+	};
+	var hide = function(object) {
+		object.css('visibility','hidden');
+	};
 });
     
  	

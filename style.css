@@ -4,7 +4,9 @@
 	height: 120px;
 	overflow:auto;
 	padding: 8px;
-	display: none;
+	position:absolute;
+	visibility:hidden;
+	z-index:999;
 }
 .anno_narrow{
 	height: 60px;
