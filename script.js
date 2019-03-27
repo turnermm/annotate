@@ -1,8 +1,11 @@
+ /**
+  * @author Myron Turner <turnermm02@shaw.ca>
+  */
  jQuery( document ).ready(function() {    
   var last_anno_open; 
    jQuery("span.anno") .mouseover(function() {       
       var title = jQuery( this ).attr('title');     
-      open_anno(title,1200);
+      open_anno(title,600);
     });
     
   jQuery("span.anno") .click(function() {       
@@ -13,28 +16,46 @@
     function open_anno(title,tm) {
        setTimeout(function() {
             if(last_anno_open)     {
-              jQuery(last_anno_open) .css('display','none');
+                  hide(	jQuery(last_anno_open));	   
            }
            last_anno_open = "span." + title;
-           jQuery("span." + title).css('display','inline-block');           
+		     show(jQuery("span." + title));
            }, tm);         
     }
 
-/*   jQuery("span.annotation").mouseover(function() {     
-	 jQuery(this).css('display','inline-block');
+     jQuery("span[id^='anno_close'") .each(function() {       
+         var clss = jQuery(this).parent().attr('class');
+         if(typeof clss != 'undefined') {
+             if(clss.match(/_r/) ) {
+				if (!jQuery(this).parent().css('border-radius')) {
+				    jQuery(this).parent().css('border-radius','15px');
+				}
+                 jQuery(this).css('border-radius','10px');
+             }
+         }
+    });
+	
+   jQuery("span.anno-dclk-over").mouseover(function() {    
+        show( jQuery(this));  
    });	
-   jQuery("span.annotation").mouseout(function() {     
-     jQuery(this).css('display','none');
+   jQuery("span.anno-dclk-over").mouseout(function() {     
+       hide(jQuery(this));
    });	
-   */
 
-   jQuery("span.annotation").dblclick(function() {     
-	 jQuery(this).css('display','none');
+   jQuery("span.anno-dclk-over").dblclick(function() {     
+       hide(jQuery(this));
    });	
    
    jQuery("span.anno_exit").click(function() {     
-	 jQuery(this).parent().parent().css('display','none');
+	    hide( jQuery(this).parent().parent());
     });	
+	
+	var show = function(object) {
+		object.css('visibility','visible');
+	};
+	var hide = function(object) {
+		object.css('visibility','hidden');
+	};
 });
     
  	
