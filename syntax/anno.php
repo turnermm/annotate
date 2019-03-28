@@ -78,7 +78,7 @@ class syntax_plugin_annotate_anno extends DokuWiki_Syntax_Plugin {
                    $id = $matches[1];
                    $text = io_readWikiPage(wikiFN($id, $rev), $id, false);
                    if($text) {
-                      $match = preg_replace("/<top>.*?<\/top>/ms", "\n$text",$match);
+                      $match = preg_replace("/<top>.*?<\/top>/ms", "\n$text\n",$match);
                   }                  
               }    
               if(preg_match("/<bottom>([\w\:]+)\<\/bottom\>/m",$match,$matches)) {

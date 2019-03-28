@@ -1,7 +1,7 @@
 base annotate
 author Myron Turner
 email turnermm02@shaw.ca
-date 2019-03-26
+date 2019-03-28
 name Annotate
 desc Creates scrollable pop-up annotation boxes
 url http://www.dokuwiki.org/plugin:annotate
